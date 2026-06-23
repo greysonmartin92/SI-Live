@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI Live - Directory</title>
+    <title>SI Leader Dashboard</title>
     <style>
         /* --- CUSTOMIZABLE COLORS --- */
         :root {
@@ -12,10 +12,11 @@
             --bg-hover: #26262c;
             --text-main: #efeff1;     
             --text-muted: #adadb8;
-            --accent: #9146ff;        
-            --accent-hover: #772ce8;
+            --accent: #00d26a;        /* Changed to a 'Ready/Go' Green for internal tool */
+            --accent-hover: #00b359;
             --border-color: #2f2f35;
             --tag-bg: #323239;
+            --alert: #eb0400;
         }
 
         body, html {
@@ -64,6 +65,21 @@
             color: var(--accent);
         }
 
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #555;
+            border-radius: 50%;
+        }
+
         /* --- MAIN LAYOUT --- */
         .main-container {
             display: flex;
@@ -71,7 +87,7 @@
             overflow: hidden;
         }
 
-        /* --- LEFT SIDEBAR --- */
+        /* --- LEFT SIDEBAR (Colleagues & Comm) --- */
         .sidebar {
             width: 240px;
             background-color: var(--bg-panel);
@@ -80,6 +96,7 @@
             padding: 10px 0;
             overflow-y: auto;
             flex-shrink: 0;
+            border-right: 1px solid var(--border-color);
         }
 
         .sidebar-title {
@@ -88,6 +105,8 @@
             font-weight: bold;
             padding: 10px 20px;
             color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
         }
 
         .channel-item {
@@ -109,13 +128,6 @@
             gap: 10px;
         }
 
-        .avatar {
-            width: 30px;
-            height: 30px;
-            background-color: #555;
-            border-radius: 50%;
-        }
-
         .channel-name {
             font-weight: bold;
             font-size: 0.9rem;
@@ -126,17 +138,25 @@
             color: var(--text-muted);
         }
 
-        .viewer-count {
+        .status-indicator {
             display: flex;
             align-items: center;
             gap: 5px;
             font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
+        .green-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+        
         .red-dot {
             width: 8px;
             height: 8px;
-            background-color: #eb0400;
+            background-color: var(--alert);
             border-radius: 50%;
         }
 
@@ -147,7 +167,7 @@
             overflow-y: auto;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Next Action) --- */
         .hero-section {
             background: linear-gradient(135deg, #1f1f23 0%, #0e0e10 100%);
             border: 1px solid var(--border-color);
@@ -158,23 +178,54 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-left: 5px solid var(--accent);
+        }
+
+        .hero-text h2 {
+            margin: 0 0 5px 0;
+            color: var(--accent);
+            font-size: 1rem;
+            text-transform: uppercase;
         }
 
         .hero-text h1 {
             margin: 0 0 10px 0;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
 
         .hero-text p {
             color: var(--text-muted);
             font-size: 1.1rem;
-            max-width: 500px;
+            max-width: 600px;
             margin-bottom: 20px;
         }
 
-        .join-btn {
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
             background-color: var(--accent);
-            color: white;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--tag-bg);
+            color: var(--text-main);
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -183,113 +234,98 @@
             cursor: pointer;
         }
 
-        .join-btn:hover {
-            background-color: var(--accent-hover);
+        .btn-secondary:hover {
+            background-color: #46464f;
         }
 
         /* --- GRID SECTION --- */
         .section-title {
             font-size: 1.2rem;
             margin-bottom: 20px;
-        }
-
-        .accent-text {
-            color: var(--accent);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
+            margin-bottom: 40px;
         }
 
-        .stream-card {
+        /* Internal Dashboard Cards */
+        .dash-card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .stream-card:hover .stream-thumbnail {
-            transform: translateY(-4px) translateX(4px);
-            box-shadow: -4px 4px 0px var(--accent);
+        .dash-card:hover {
+            transform: translateY(-2px);
+            border-color: #555;
         }
 
-        .thumbnail-container {
-            position: relative;
-            background-color: var(--accent); /* Behind the thumbnail for hover effect */
-            border-radius: 4px;
-        }
-
-        .stream-thumbnail {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #333;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .live-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #eb0400;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 4px;
-            z-index: 3;
-        }
-
-        .card-details {
+        .card-header {
             display: flex;
-            margin-top: 10px;
-            gap: 10px;
-        }
-
-        .card-info {
-            display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
         }
 
         .card-title {
             font-weight: bold;
-            font-size: 1rem;
-            margin-bottom: 2px;
+            font-size: 1.1rem;
             color: var(--text-main);
+            margin-bottom: 5px;
         }
 
-        .card-leader, .card-category {
+        .card-meta {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
 
-        .tags {
-            display: flex;
-            gap: 5px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background-color: var(--tag-bg);
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 12px;
+        .metric-badge {
+            background-color: rgba(0, 210, 106, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
             font-weight: bold;
+            border: 1px solid var(--accent);
         }
 
-        .tag:hover {
-            background-color: #46464f;
+        .card-actions {
+            margin-top: auto;
+            padding-top: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .card-actions button {
+            flex: 1;
+            background-color: var(--tag-bg);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .card-actions button:hover {
+            background-color: #555;
         }
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 900px) {
             .sidebar {
-                display: none; /* Hide sidebar on smaller screens */
+                display: none; 
             }
             .hero-section {
                 flex-direction: column;
@@ -301,153 +337,141 @@
 </head>
 <body>
 
-    <!-- Top Navigation -->
     <nav class="navbar">
-        <div class="nav-brand">SI Hub</div>
+        <div class="nav-brand">SI LEADER HUB</div>
         <div class="nav-links">
-            <span>Browse</span>
-            <span>Schedule</span>
-            <span>Resources</span>
+            <span>Dashboard</span>
+            <span>My Schedule</span>
+            <span>Training Docs</span>
+            <span>Submit Attendance</span>
         </div>
-        <div class="avatar"></div>
+        <div class="user-profile">
+            Alex J.
+            <div class="avatar" style="background-color: #00d26a;"></div>
+        </div>
     </nav>
 
-    <!-- Main Layout -->
     <div class="main-container">
         
-        <!-- Left Sidebar (Recommended Channels) -->
         <aside class="sidebar">
-            <div class="sidebar-title">Recommended Leaders</div>
+            <div class="sidebar-title">
+                <span>Online Colleagues</span>
+                <span>3</span>
+            </div>
             
             <div class="channel-item">
                 <div class="channel-info">
                     <div class="avatar" style="background-color: #e09f3e;"></div>
                     <div>
-                        <div class="channel-name">Sarah_Geosci</div>
+                        <div class="channel-name">Sarah M.</div>
                         <div class="channel-category">Geology</div>
                     </div>
                 </div>
-                <div class="viewer-count"><div class="red-dot"></div> 42</div>
+                <div class="status-indicator"><div class="green-dot"></div> Planning</div>
             </div>
 
             <div class="channel-item">
                 <div class="channel-info">
                     <div class="avatar" style="background-color: #337ca0;"></div>
                     <div>
-                        <div class="channel-name">CodeWithAlex</div>
-                        <div class="channel-category">Computer Science</div>
+                        <div class="channel-name">David L.</div>
+                        <div class="channel-category">Comp Sci</div>
                     </div>
                 </div>
-                <div class="viewer-count"><div class="red-dot"></div> 28</div>
+                <div class="status-indicator"><div class="red-dot"></div> In Session</div>
             </div>
 
+            <div class="sidebar-title" style="margin-top: 20px;">
+                <span>Coordinators</span>
+            </div>
+            
             <div class="channel-item">
                 <div class="channel-info">
                     <div class="avatar" style="background-color: #7b2cbf;"></div>
                     <div>
-                        <div class="channel-name">ChemMaster</div>
-                        <div class="channel-category">Organic Chemistry</div>
+                        <div class="channel-name">Prof. Higgins</div>
+                        <div class="channel-category">SI Supervisor</div>
                     </div>
                 </div>
-                <div class="viewer-count"><div class="red-dot"></div> 15</div>
+                <div class="status-indicator"><div class="green-dot"></div> Available</div>
             </div>
         </aside>
 
-        <!-- Center Content Area -->
         <main class="content-area">
             
-            <!-- Hero / Featured Stream -->
             <section class="hero-section">
                 <div class="hero-text">
-                    <h1>Support Vector Machines Deep Dive</h1>
-                    <p>Join Alex as we break down SVMs, kernel tricks, and run through a live Python model validation exercise before next week's project deadline.</p>
-                    <button class="join-btn">Watch Live Now</button>
+                    <h2>Up Next</h2>
+                    <h1>Exam 3 Prep: Machine Learning</h1>
+                    <p>Starts in <strong>15 minutes</strong>. You have 24 students RSVP'd via Canvas. Don't forget to run the attendance poll at the end of the session!</p>
+                    <div class="action-buttons">
+                        <button class="btn-primary">▶ Start Zoom Session</button>
+                        <button class="btn-secondary">Open Lesson Plan</button>
+                    </div>
                 </div>
             </section>
 
-            <!-- Browse Grid -->
-            <h2 class="section-title"><span class="accent-text">Live SI Sessions</span> we think you'll like</h2>
-            
+            <h2 class="section-title">Active Peer Sessions (Shadowing Available)</h2>
             <section class="grid-container">
                 
-                <!-- Card 1 -->
-                <article class="stream-card">
-                    <div class="thumbnail-container">
-                        <div class="live-badge">LIVE</div>
-                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
-                    </div>
-                    <div class="card-details">
-                        <div class="avatar" style="background-color: #337ca0; flex-shrink: 0;"></div>
-                        <div class="card-info">
-                            <div class="card-title">Exam 3 Prep: Machine Learning & Python</div>
-                            <div class="card-leader">CodeWithAlex</div>
-                            <div class="card-category">Computer Science</div>
-                            <div class="tags">
-                                <span class="tag">Python</span>
-                                <span class="tag">Exam Review</span>
-                            </div>
+                <article class="dash-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Mineralogy Lab Review</div>
+                            <div class="card-meta">Leader: Sarah M. | Geology</div>
                         </div>
+                        <div class="metric-badge">LIVE</div>
+                    </div>
+                    <div class="card-meta" style="margin-bottom: 10px;">
+                        <strong>Current Attendance:</strong> 18 Students<br>
+                        <strong>Topic:</strong> Silicate Structures
+                    </div>
+                    <div class="card-actions">
+                        <button>Join to Shadow</button>
+                        <button>Message Leader</button>
                     </div>
                 </article>
 
-                <!-- Card 2 -->
-                <article class="stream-card">
-                    <div class="thumbnail-container">
-                        <div class="live-badge">LIVE</div>
-                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
-                    </div>
-                    <div class="card-details">
-                        <div class="avatar" style="background-color: #e09f3e; flex-shrink: 0;"></div>
-                        <div class="card-info">
-                            <div class="card-title">Mineralogy Identification Walkthrough</div>
-                            <div class="card-leader">Sarah_Geosci</div>
-                            <div class="card-category">Geology</div>
-                            <div class="tags">
-                                <span class="tag">Lab Prep</span>
-                                <span class="tag">Q&A</span>
-                            </div>
+                <article class="dash-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Reaction Mechanisms</div>
+                            <div class="card-meta">Leader: ChemMaster | Organic Chem</div>
                         </div>
+                        <div class="metric-badge">LIVE</div>
+                    </div>
+                    <div class="card-meta" style="margin-bottom: 10px;">
+                        <strong>Current Attendance:</strong> 42 Students<br>
+                        <strong>Topic:</strong> SN1 vs SN2 Reactions
+                    </div>
+                    <div class="card-actions">
+                        <button>Join to Shadow</button>
+                        <button>Message Leader</button>
                     </div>
                 </article>
-
-                <!-- Card 3 -->
-                <article class="stream-card">
-                    <div class="thumbnail-container">
-                        <div class="live-badge">LIVE</div>
-                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1603126857599-f6e157820684?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
-                    </div>
-                    <div class="card-details">
-                        <div class="avatar" style="background-color: #7b2cbf; flex-shrink: 0;"></div>
-                        <div class="card-info">
-                            <div class="card-title">Reaction Mechanisms Practice</div>
-                            <div class="card-leader">ChemMaster</div>
-                            <div class="card-category">Organic Chemistry</div>
-                            <div class="tags">
-                                <span class="tag">Homework Help</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 4 -->
-                <article class="stream-card">
-                    <div class="thumbnail-container">
-                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1596496050827-8299e0220de1?auto=format&fit=crop&w=400&q=80') center/cover; filter: grayscale(100%);"></div>
-                    </div>
-                    <div class="card-details">
-                        <div class="avatar" style="background-color: #555; flex-shrink: 0;"></div>
-                        <div class="card-info">
-                            <div class="card-title">Calculus II: Integration by Parts</div>
-                            <div class="card-leader">MathWizard_99</div>
-                            <div class="card-category">Mathematics</div>
-                            <div class="tags">
-                                <span class="tag">VOD Available</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
             </section>
+
+            <h2 class="section-title">Quick Resources & Tasks</h2>
+            <section class="grid-container" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
+                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📝</div>
+                    <div class="card-title">Log Attendance</div>
+                    <div class="card-meta">Submit your weekly roster</div>
+                </article>
+
+                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
+                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📁</div>
+                    <div class="card-title">Upload Notes</div>
+                    <div class="card-meta">Share materials to Canvas</div>
+                </article>
+                
+                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
+                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📅</div>
+                    <div class="card-title">Time Clock</div>
+                    <div class="card-meta">Clock in/out for payroll</div>
+                </article>
+            </section>
+
         </main>
     </div>
 
