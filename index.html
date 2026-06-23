@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI Live - Directory</title>
+    <style>
+        /* --- CUSTOMIZABLE COLORS --- */
+        :root {
+            --bg-main: #0e0e10;       
+            --bg-panel: #1f1f23;      
+            --bg-hover: #26262c;
+            --text-main: #efeff1;     
+            --text-muted: #adadb8;
+            --accent: #9146ff;        
+            --accent-hover: #772ce8;
+            --border-color: #2f2f35;
+            --tag-bg: #323239;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TOP NAVIGATION --- */
+        .navbar {
+            height: 50px;
+            background-color: var(--bg-panel);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+        }
+        
+        .nav-links span {
+            cursor: pointer;
+            color: var(--text-main);
+        }
+        
+        .nav-links span:hover {
+            color: var(--accent);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- LEFT SIDEBAR --- */
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-panel);
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 10px 20px;
+            color: var(--text-muted);
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .channel-item:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #555;
+            border-radius: 50%;
+        }
+
+        .channel-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .channel-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .viewer-count {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+
+        .red-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #eb0400;
+            border-radius: 50%;
+        }
+
+        /* --- CONTENT AREA (Center) --- */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            background: linear-gradient(135deg, #1f1f23 0%, #0e0e10 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero-text h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .join-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .join-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* --- GRID SECTION --- */
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .stream-card {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .stream-card:hover .stream-thumbnail {
+            transform: translateY(-4px) translateX(4px);
+            box-shadow: -4px 4px 0px var(--accent);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            background-color: var(--accent); /* Behind the thumbnail for hover effect */
+            border-radius: 4px;
+        }
+
+        .stream-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #333;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #eb0400;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 3;
+        }
+
+        .card-details {
+            display: flex;
+            margin-top: 10px;
+            gap: 10px;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 2px;
+            color: var(--text-main);
+        }
+
+        .card-leader, .card-category {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tags {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .tag:hover {
+            background-color: #46464f;
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none; /* Hide sidebar on smaller screens */
+            }
+            .hero-section {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">SI Hub</div>
+        <div class="nav-links">
+            <span>Browse</span>
+            <span>Schedule</span>
+            <span>Resources</span>
+        </div>
+        <div class="avatar"></div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+        
+        <!-- Left Sidebar (Recommended Channels) -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Recommended Leaders</div>
+            
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-color: #e09f3e;"></div>
+                    <div>
+                        <div class="channel-name">Sarah_Geosci</div>
+                        <div class="channel-category">Geology</div>
+                    </div>
+                </div>
+                <div class="viewer-count"><div class="red-dot"></div> 42</div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-color: #337ca0;"></div>
+                    <div>
+                        <div class="channel-name">CodeWithAlex</div>
+                        <div class="channel-category">Computer Science</div>
+                    </div>
+                </div>
+                <div class="viewer-count"><div class="red-dot"></div> 28</div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-color: #7b2cbf;"></div>
+                    <div>
+                        <div class="channel-name">ChemMaster</div>
+                        <div class="channel-category">Organic Chemistry</div>
+                    </div>
+                </div>
+                <div class="viewer-count"><div class="red-dot"></div> 15</div>
+            </div>
+        </aside>
+
+        <!-- Center Content Area -->
+        <main class="content-area">
+            
+            <!-- Hero / Featured Stream -->
+            <section class="hero-section">
+                <div class="hero-text">
+                    <h1>Support Vector Machines Deep Dive</h1>
+                    <p>Join Alex as we break down SVMs, kernel tricks, and run through a live Python model validation exercise before next week's project deadline.</p>
+                    <button class="join-btn">Watch Live Now</button>
+                </div>
+            </section>
+
+            <!-- Browse Grid -->
+            <h2 class="section-title"><span class="accent-text">Live SI Sessions</span> we think you'll like</h2>
+            
+            <section class="grid-container">
+                
+                <!-- Card 1 -->
+                <article class="stream-card">
+                    <div class="thumbnail-container">
+                        <div class="live-badge">LIVE</div>
+                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="avatar" style="background-color: #337ca0; flex-shrink: 0;"></div>
+                        <div class="card-info">
+                            <div class="card-title">Exam 3 Prep: Machine Learning & Python</div>
+                            <div class="card-leader">CodeWithAlex</div>
+                            <div class="card-category">Computer Science</div>
+                            <div class="tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">Exam Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="stream-card">
+                    <div class="thumbnail-container">
+                        <div class="live-badge">LIVE</div>
+                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="avatar" style="background-color: #e09f3e; flex-shrink: 0;"></div>
+                        <div class="card-info">
+                            <div class="card-title">Mineralogy Identification Walkthrough</div>
+                            <div class="card-leader">Sarah_Geosci</div>
+                            <div class="card-category">Geology</div>
+                            <div class="tags">
+                                <span class="tag">Lab Prep</span>
+                                <span class="tag">Q&A</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="stream-card">
+                    <div class="thumbnail-container">
+                        <div class="live-badge">LIVE</div>
+                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1603126857599-f6e157820684?auto=format&fit=crop&w=400&q=80') center/cover;"></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="avatar" style="background-color: #7b2cbf; flex-shrink: 0;"></div>
+                        <div class="card-info">
+                            <div class="card-title">Reaction Mechanisms Practice</div>
+                            <div class="card-leader">ChemMaster</div>
+                            <div class="card-category">Organic Chemistry</div>
+                            <div class="tags">
+                                <span class="tag">Homework Help</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="stream-card">
+                    <div class="thumbnail-container">
+                        <div class="stream-thumbnail" style="background: url('https://images.unsplash.com/photo-1596496050827-8299e0220de1?auto=format&fit=crop&w=400&q=80') center/cover; filter: grayscale(100%);"></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="avatar" style="background-color: #555; flex-shrink: 0;"></div>
+                        <div class="card-info">
+                            <div class="card-title">Calculus II: Integration by Parts</div>
+                            <div class="card-leader">MathWizard_99</div>
+                            <div class="card-category">Mathematics</div>
+                            <div class="tags">
+                                <span class="tag">VOD Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
