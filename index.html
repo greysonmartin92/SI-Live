@@ -76,10 +76,11 @@
         .avatar {
             width: 30px;
             height: 30px;
-            background-color: #555; /* This acts as a fallback color if the image breaks */
+            background-color: #555; 
             border-radius: 50%;
-            background-size: cover;       /* Ensures the image fills the circle */
-            background-position: center;  /* Centers the face in the circle */
+            background-size: contain;     /* Changed from 'cover' to 'contain' */
+            background-position: center;  
+            background-repeat: no-repeat; /* Prevents the image from tiling */
         }
 
         /* --- MAIN LAYOUT --- */
