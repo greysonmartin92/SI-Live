@@ -141,10 +141,12 @@
         .status-indicator {
             display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: flex-end; /* Forces everything to line up against the right edge */
+            gap: 8px;                  /* Clean spacing between the dot and the text */
             font-size: 0.8rem;
             color: var(--text-muted);
-            width: 95px;
+            width: 100px;              /* Standardized block width */
+            text-align: right;
         }
 
         .green-dot {
