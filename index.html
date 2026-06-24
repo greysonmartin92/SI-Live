@@ -425,7 +425,7 @@
         </main>
     </div>
 
-    <script>
+<script>
         const staffSchedules = {
             nicole: {
                 1: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
@@ -444,14 +444,28 @@
             greyson: {
                 1: { start: 8, end: 12 },
                 2: { start: 8, end: 12 },
-                3: { start: 8, end: 12 }
+                3: { start: 8, end: 12 },
+                4: { start: 8, end: 12 },
+                5: { start: 8, end: 12 }
             }
         };
+
+        // DIAGNOSTIC TOOL: Creates a small box to show you what time the code sees
+        const debugBox = document.createElement('div');
+        debugBox.style.padding = '10px';
+        debugBox.style.backgroundColor = '#eb0400';
+        debugBox.style.color = 'white';
+        debugBox.style.fontWeight = 'bold';
+        debugBox.style.textAlign = 'center';
+        document.body.insertBefore(debugBox, document.body.firstChild);
 
         function updateAllStatuses() {
             const now = new Date();
             const currentDay = now.getDay();
             const currentHourDecimal = now.getHours() + (now.getMinutes() / 60);
+
+            // Print the current time so you can verify it
+            debugBox.innerText = `DEBUG MODE - Browser Day: ${currentDay} (1=Mon, 5=Fri) | Browser Time Decimal: ${currentHourDecimal.toFixed(2)}`;
 
             for (const person in staffSchedules) {
                 const schedule = staffSchedules[person];
@@ -482,7 +496,7 @@
                     statusEl.innerText = 'On Lunch';
                 } else {
                     dotEl.className = 'gray-dot';
-                    statusEl.innerText = 'Offline'; /* Changed to offline to match shorter text */
+                    statusEl.innerText = 'Offline'; 
                 }
             }
         }
