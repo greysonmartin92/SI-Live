@@ -12,11 +12,12 @@
             --bg-hover: #26262c;
             --text-main: #efeff1;     
             --text-muted: #adadb8;
-            --accent: #00d26a;        /* Changed to a 'Ready/Go' Green for internal tool */
+            --accent: #00d26a;        
             --accent-hover: #00b359;
             --border-color: #2f2f35;
             --tag-bg: #323239;
             --alert: #eb0400;
+            --away: #f5a623;          
         }
 
         body, html {
@@ -73,14 +74,15 @@
             font-weight: bold;
         }
 
+        /* IMAGE AVATAR SETTINGS */
         .avatar {
             width: 30px;
             height: 30px;
-            background-color: #555; 
+            background-color: #555;
             border-radius: 50%;
-            background-size: contain;     /* Changed from 'cover' to 'contain' */
-            background-position: center;  
-            background-repeat: no-repeat; /* Prevents the image from tiling */
+            background-size: cover;
+            background-position: top; /* Keeps heads from getting cut off */
+            flex-shrink: 0;
         }
 
         /* --- MAIN LAYOUT --- */
@@ -90,7 +92,7 @@
             overflow: hidden;
         }
 
-        /* --- LEFT SIDEBAR (Colleagues & Comm) --- */
+        /* --- LEFT SIDEBAR --- */
         .sidebar {
             width: 240px;
             background-color: var(--bg-panel);
@@ -112,6 +114,7 @@
             justify-content: space-between;
         }
 
+        /* ALIGNMENT FIXES FOR THE SIDEBAR ROWS */
         .channel-item {
             display: flex;
             align-items: center;
@@ -119,7 +122,7 @@
             padding: 10px 20px;
             cursor: pointer;
             transition: background 0.2s;
-            gap: 10px; /* Ensures a minimum gap between names and statuses */
+            gap: 10px; /* Space between name and status */
         }
 
         .channel-item:hover {
@@ -130,13 +133,16 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            flex: 1;          /* Tells the left side to safely take up available space */
-            overflow: hidden; /* Prevents extra-long names from breaking the layout */
+            flex: 1; /* Takes up remaining left space safely */
+            overflow: hidden;
         }
 
         .channel-name {
             font-weight: bold;
             font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Adds ... if a name is too long */
         }
 
         .channel-category {
@@ -144,31 +150,31 @@
             color: var(--text-muted);
         }
 
+        /* The Box Holding the Dot and Text */
         .status-indicator {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Forces everything to line up against the right edge */
-            gap: 6px;                  /* Clean spacing between the dot and the text */
+            justify-content: flex-end; /* Pushes content right */
+            gap: 6px;
             font-size: 0.8rem;
             color: var(--text-muted);
-            flex-shrink: 0;
-            width: 90px;              /* Standardized block width */
+            width: 90px; /* Locks the width */
+            flex-shrink: 0; /* Prevents squishing */
             text-align: right;
         }
 
-        .green-dot {
+        /* STATUS DOTS */
+        .green-dot, .red-dot, .orange-dot, .gray-dot {
             width: 8px;
             height: 8px;
-            background-color: var(--accent);
             border-radius: 50%;
+            flex-shrink: 0;
         }
         
-        .red-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--alert);
-            border-radius: 50%;
-        }
+        .green-dot { background-color: var(--accent); }
+        .red-dot { background-color: var(--alert); }
+        .orange-dot { background-color: var(--away); }
+        .gray-dot { background-color: #555; }
 
         /* --- CONTENT AREA (Center) --- */
         .content-area {
@@ -177,7 +183,6 @@
             overflow-y: auto;
         }
 
-        /* --- HERO SECTION (Next Action) --- */
         .hero-section {
             background: linear-gradient(135deg, #1f1f23 0%, #0e0e10 100%);
             border: 1px solid var(--border-color);
@@ -191,51 +196,13 @@
             border-left: 5px solid var(--accent);
         }
 
-        .hero-text h2 {
-            margin: 0 0 5px 0;
-            color: var(--accent);
-            font-size: 1rem;
-            text-transform: uppercase;
-        }
+        .hero-text h2 { margin: 0 0 5px 0; color: var(--accent); font-size: 1rem; text-transform: uppercase; }
+        .hero-text h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
+        .hero-text p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin-bottom: 20px; }
 
-        .hero-text h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-        }
-
-        .hero-text p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn-secondary {
-            background-color: var(--tag-bg);
-            color: var(--text-main);
+        .action-buttons { display: flex; gap: 15px; }
+        
+        .btn-primary, .btn-secondary {
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -243,12 +210,11 @@
             font-size: 1rem;
             cursor: pointer;
         }
+        .btn-primary { background-color: var(--accent); color: #000; display: flex; align-items: center; gap: 8px; }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        .btn-secondary { background-color: var(--tag-bg); color: var(--text-main); }
+        .btn-secondary:hover { background-color: #46464f; }
 
-        .btn-secondary:hover {
-            background-color: #46464f;
-        }
-
-        /* --- GRID SECTION --- */
         .section-title {
             font-size: 1.2rem;
             margin-bottom: 20px;
@@ -263,7 +229,6 @@
             margin-bottom: 40px;
         }
 
-        /* Internal Dashboard Cards */
         .dash-card {
             background-color: var(--bg-panel);
             border: 1px solid var(--border-color);
@@ -273,31 +238,10 @@
             flex-direction: column;
             transition: transform 0.2s;
         }
-
-        .dash-card:hover {
-            transform: translateY(-2px);
-            border-color: #555;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .card-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
+        .dash-card:hover { transform: translateY(-2px); border-color: #555; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .card-title { font-weight: bold; font-size: 1.1rem; color: var(--text-main); margin-bottom: 5px; }
+        .card-meta { font-size: 0.85rem; color: var(--text-muted); }
         .metric-badge {
             background-color: rgba(0, 210, 106, 0.1);
             color: var(--accent);
@@ -307,7 +251,6 @@
             font-weight: bold;
             border: 1px solid var(--accent);
         }
-
         .card-actions {
             margin-top: auto;
             padding-top: 15px;
@@ -315,7 +258,6 @@
             gap: 10px;
             border-top: 1px solid var(--border-color);
         }
-        
         .card-actions button {
             flex: 1;
             background-color: var(--tag-bg);
@@ -327,21 +269,11 @@
             font-weight: bold;
             font-size: 0.85rem;
         }
+        .card-actions button:hover { background-color: #555; }
 
-        .card-actions button:hover {
-            background-color: #555;
-        }
-
-        /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 900px) {
-            .sidebar {
-                display: none; 
-            }
-            .hero-section {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
-            }
+            .sidebar { display: none; }
+            .hero-section { flex-direction: column; align-items: flex-start; padding: 20px; }
         }
     </style>
 </head>
@@ -357,61 +289,35 @@
         </div>
         <div class="user-profile">
             Alex J.
-            <div class="avatar" style="background-color: #00d26a;"></div>
+            <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&q=80');"></div>
         </div>
     </nav>
 
     <div class="main-container">
         
         <aside class="sidebar">
-            <div class="sidebar-title">
-                <span>Online Colleagues</span>
-                <span>3</span>
-            </div>
             
-            <div class="channel-item">
-                <div class="channel-info">
-                    <div class="avatar" style="background-color: #e09f3e;"></div>
-                    <div>
-                        <div class="channel-name">Sarah M.</div>
-                        <div class="channel-category">Geology</div>
-                    </div>
-                </div>
-                <div class="status-indicator"><div class="green-dot"></div> Planning</div>
-            </div>
-
-            <div class="channel-item">
-                <div class="channel-info">
-                    <div class="avatar" style="background-color: #337ca0;"></div>
-                    <div>
-                        <div class="channel-name">David L.</div>
-                        <div class="channel-category">Comp Sci</div>
-                    </div>
-                </div>
-                <div class="status-indicator"><div class="red-dot"></div> In Session</div>
-            </div>
-
-<div class="sidebar-title" style="margin-top: 20px;">
+            <div class="sidebar-title">
                 <span>Leadership</span>
             </div>
             
             <div class="channel-item">
                 <div class="channel-info">
-                    <div class="avatar" style="background-color: #7b2cbf;"></div>
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80');"></div>
                     <div>
                         <div class="channel-name">Nicole Procell</div>
                         <div class="channel-category">SI Manager</div>
                     </div>
                 </div>
-                    <div class="status-indicator">
-                    <div id="nicole-dot" class="green-dot"></div> 
-                    <span id="nicole-status">Available</span>
-</div>
+                <div class="status-indicator">
+                    <div id="nicole-dot" class="gray-dot"></div> 
+                    <span id="nicole-status">Checking...</span>
+                </div>
             </div>
-            
-                        <div class="channel-item">
+
+            <div class="channel-item">
                 <div class="channel-info">
-                    <div class="avatar" style="background-color: #7b2cbf;"></div>
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80');"></div>
                     <div>
                         <div class="channel-name">Erika Sanchez</div>
                         <div class="channel-category">Senior SI Leader</div>
@@ -423,9 +329,9 @@
                 </div>
             </div>
 
-                        <div class="channel-item">
+            <div class="channel-item">
                 <div class="channel-info">
-                    <div class="avatar" style="background-image: url('(Copy)Headliners_20263151122.jpg');"></div>
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&q=80');"></div>
                     <div>
                         <div class="channel-name">Greyson Martin</div>
                         <div class="channel-category">Senior SI Leader</div>
@@ -435,6 +341,32 @@
                     <div id="greyson-dot" class="gray-dot"></div> 
                     <span id="greyson-status">Checking...</span>
                 </div>
+            </div>
+
+            <div class="sidebar-title" style="margin-top: 20px;">
+                <span>Online Peers</span>
+            </div>
+            
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">Sarah M.</div>
+                        <div class="channel-category">Geology</div>
+                    </div>
+                </div>
+                <div class="status-indicator"><div class="green-dot"></div> Planning</div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">David L.</div>
+                        <div class="channel-category">Comp Sci</div>
+                    </div>
+                </div>
+                <div class="status-indicator"><div class="red-dot"></div> In Session</div>
             </div>
         </aside>
 
@@ -454,7 +386,6 @@
 
             <h2 class="section-title">Active Peer Sessions (Shadowing Available)</h2>
             <section class="grid-container">
-                
                 <article class="dash-card">
                     <div class="card-header">
                         <div>
@@ -491,56 +422,29 @@
                     </div>
                 </article>
             </section>
-
-            <h2 class="section-title">Quick Resources & Tasks</h2>
-            <section class="grid-container" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
-                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
-                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📝</div>
-                    <div class="card-title">Log Attendance</div>
-                    <div class="card-meta">Submit your weekly roster</div>
-                </article>
-
-                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
-                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📁</div>
-                    <div class="card-title">Upload Notes</div>
-                    <div class="card-meta">Share materials to Canvas</div>
-                </article>
-                
-                <article class="dash-card" style="align-items: center; text-align: center; cursor: pointer;">
-                    <div class="avatar" style="width: 50px; height: 50px; background-color: var(--tag-bg); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📅</div>
-                    <div class="card-title">Time Clock</div>
-                    <div class="card-meta">Clock in/out for payroll</div>
-                </article>
-            </section>
-
         </main>
     </div>
 
-<script>
-        /**
-         * Configure schedules for ALL staff members below.
-         * The keys ("nicole", "marcus", "elena") MUST MATCH the first part of their HTML IDs.
-         * Day of week: 1 = Monday, 5 = Friday. 24-hour decimal format.
-         */
+    <script>
         const staffSchedules = {
             nicole: {
                 1: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
                 2: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 }, 
                 3: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
                 4: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
-                5: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 }  
+                5: { start: 9, end: 15.5, lunchStart: 11.5, lunchEnd: 12 }  
             },
             erika: {
-                // 
-                2: { start: 9, end: 14 },
-                4: { start: 10, end: 19 },
-                5: { start: 9, end: 15 }
+                1: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                2: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                3: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                4: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                5: { start: 11, end: 17 } 
             },
             greyson: {
-                // 
-                1: { start: 12, end: 16 },
-                2: { start: 12, end: 16 },
-                5: { start: 10, end: 16 }
+                1: { start: 8, end: 12 },
+                2: { start: 8, end: 12 },
+                3: { start: 8, end: 12 }
             }
         };
 
@@ -549,28 +453,19 @@
             const currentDay = now.getDay();
             const currentHourDecimal = now.getHours() + (now.getMinutes() / 60);
 
-            // Loop through every person inside our staffSchedules object
             for (const person in staffSchedules) {
                 const schedule = staffSchedules[person];
-                
-                // Find their specific dot and text elements in the HTML
                 const dotEl = document.getElementById(`${person}-dot`);
                 const statusEl = document.getElementById(`${person}-status`);
                 
-                // Safety check: if we misspelled an ID, skip it without breaking the code
                 if (!dotEl || !statusEl) continue;
 
                 let status = 'offline'; 
 
-                // Check if they work today
                 if (schedule[currentDay]) {
                     const shift = schedule[currentDay];
-                    
-                    // Check if they are clocked in
                     if (currentHourDecimal >= shift.start && currentHourDecimal < shift.end) {
                         status = 'online';
-                        
-                        // Check if they are on lunch
                         if (shift.lunchStart && shift.lunchEnd) {
                             if (currentHourDecimal >= shift.lunchStart && currentHourDecimal < shift.lunchEnd) {
                                 status = 'lunch';
@@ -579,7 +474,6 @@
                     }
                 }
 
-                // Apply the visuals for this specific person
                 if (status === 'online') {
                     dotEl.className = 'green-dot';
                     statusEl.innerText = 'In Office';
@@ -587,20 +481,14 @@
                     dotEl.className = 'orange-dot';
                     statusEl.innerText = 'On Lunch';
                 } else {
-                    dotEl.className = 'red-dot';
-                    statusEl.innerText = 'Out of Office';
+                    dotEl.className = 'gray-dot';
+                    statusEl.innerText = 'Offline'; /* Changed to offline to match shorter text */
                 }
             }
         }
 
-        // Run immediately when page loads
         updateAllStatuses();
-
-        // Re-check everyone's time every 60 seconds
         setInterval(updateAllStatuses, 60000);
     </script>
-</body>
-</html>
-    
 </body>
 </html>
