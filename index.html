@@ -119,6 +119,7 @@
             padding: 10px 20px;
             cursor: pointer;
             transition: background 0.2s;
+            gap: 10px; /* Ensures a minimum gap between names and statuses */
         }
 
         .channel-item:hover {
@@ -129,6 +130,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex: 1;          /* Tells the left side to safely take up available space */
+            overflow: hidden; /* Prevents extra-long names from breaking the layout */
         }
 
         .channel-name {
@@ -145,10 +148,11 @@
             display: flex;
             align-items: center;
             justify-content: flex-end; /* Forces everything to line up against the right edge */
-            gap: 8px;                  /* Clean spacing between the dot and the text */
+            gap: 6px;                  /* Clean spacing between the dot and the text */
             font-size: 0.8rem;
             color: var(--text-muted);
-            width: 100px;              /* Standardized block width */
+            flex-shrink: 0;
+            width: 90px;              /* Standardized block width */
             text-align: right;
         }
 
