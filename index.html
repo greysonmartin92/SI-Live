@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI Live</title>
+    <title>SI Leader Dashboard</title>
     <style>
         /* --- CUSTOMIZABLE COLORS --- */
         :root {
@@ -62,9 +62,7 @@
             color: var(--text-main);
         }
         
-        .nav-links span:hover {
-            color: var(--accent);
-        }
+        .nav-links span:hover { color: var(--accent); }
 
         .user-profile {
             display: flex;
@@ -81,7 +79,7 @@
             background-color: #555;
             border-radius: 50%;
             background-size: cover;
-            background-position: top; /* Keeps heads from getting cut off */
+            background-position: top; 
             flex-shrink: 0;
         }
 
@@ -94,7 +92,7 @@
 
         /* --- LEFT SIDEBAR --- */
         .sidebar {
-            width: 240px;
+            width: 280px; /* Widened to fit names */
             background-color: var(--bg-panel);
             display: flex;
             flex-direction: column;
@@ -114,50 +112,49 @@
             justify-content: space-between;
         }
 
-        /* ALIGNMENT FIXES FOR THE SIDEBAR ROWS */
+        /* SIDEBAR ROWS */
         .channel-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             transition: background 0.2s;
-            gap: 10px; /* Space between name and status */
+            gap: 8px; 
         }
 
-        .channel-item:hover {
-            background-color: var(--bg-hover);
-        }
+        .channel-item:hover { background-color: var(--bg-hover); }
 
         .channel-info {
             display: flex;
             align-items: center;
             gap: 10px;
-            flex: 1; /* Takes up remaining left space safely */
+            flex: 1; 
             overflow: hidden;
         }
 
         .channel-name {
             font-weight: bold;
             font-size: 0.9rem;
-            line-height: 1.2;
+            line-height: 1.2; /* Keeps stacked names close together */
         }
 
         .channel-category {
             font-size: 0.8rem;
             color: var(--text-muted);
+            margin-top: 3px;
         }
 
-        /* The Box Holding the Dot and Text */
+        /* STATUS DOT ALIGNMENT BOX */
         .status-indicator {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Pushes content right */
+            justify-content: flex-end; 
             gap: 6px;
             font-size: 0.8rem;
             color: var(--text-muted);
-            width: 90px; /* Locks the width */
-            flex-shrink: 0; /* Prevents squishing */
+            width: 85px; 
+            flex-shrink: 0; 
             text-align: right;
         }
 
@@ -181,7 +178,14 @@
             overflow-y: auto;
         }
 
-/* --- SUBJECT GRID & TILES --- */
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* --- SUBJECT GRID & TILES --- */
         .subject-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -198,7 +202,7 @@
             flex-direction: column;
             transition: transform 0.2s, border-color 0.2s;
             cursor: pointer;
-            text-decoration: none;
+            text-decoration: none; /* Removes link underlines */
         }
 
         .subject-tile:hover {
@@ -222,32 +226,7 @@
             text-align: center;
         }
 
-        .hero-text h2 { margin: 0 0 5px 0; color: var(--accent); font-size: 1rem; text-transform: uppercase; }
-        .hero-text h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        .hero-text p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin-bottom: 20px; }
-
-        .action-buttons { display: flex; gap: 15px; }
-        
-        .btn-primary, .btn-secondary {
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .btn-primary { background-color: var(--accent); color: #000; display: flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { background-color: var(--accent-hover); }
-        .btn-secondary { background-color: var(--tag-bg); color: var(--text-main); }
-        .btn-secondary:hover { background-color: #46464f; }
-
-        .section-title {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
+        /* --- DASHBOARD CARDS --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -299,14 +278,13 @@
 
         @media (max-width: 900px) {
             .sidebar { display: none; }
-            .hero-section { flex-direction: column; align-items: flex-start; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-brand">SI Live</div>
+        <div class="nav-brand">SI LEADER HUB</div>
         <div class="nav-links">
             <span>Dashboard</span>
             <span>My Schedule</span>
@@ -314,7 +292,7 @@
             <span>Submit Attendance</span>
         </div>
         <div class="user-profile">
-            SI Leader
+            Alex J.
             <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&q=80');"></div>
         </div>
     </nav>
@@ -332,7 +310,7 @@
                     <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80');"></div>
                     <div>
                         <div class="channel-name">Nicole<br>Procell</div>
-                        <div class="channel-category">SI<br>Manager</div>
+                        <div class="channel-category">SI Manager</div>
                     </div>
                 </div>
                 <div class="status-indicator">
@@ -401,63 +379,62 @@
             <h2 class="section-title">Explore SI Subjects</h2>
             <section class="subject-grid">
 
-        <a href="https://tarrantcountycoll864.sharepoint.com/:f:/r/sites/TEAMS-SoutheastSupplementalInstruction/Shared%20Documents/SI%20Leader%20Training%20and%20Tools/Content%20Resources/Science/A%26P%201?csf=1&web=1&e=L3bSwD" class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?w=300&q=80');"></div>
-        <div class="subject-name">A&P I</div>
-        </a>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?w=300&q=80');"></div>
+                    <div class="subject-name">A&P I</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?w=300&q=80');"></div>
-        <div class="subject-name">A&P II</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?w=300&q=80');"></div>
+                    <div class="subject-name">A&P II</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1532187863486-abf9d39d6618?w=300&q=80');"></div>
-        <div class="subject-name">Biology</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1532187863486-abf9d39d6618?w=300&q=80');"></div>
+                    <div class="subject-name">Biology</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1617155093730-a8bf47be792d?w=300&q=80');"></div>
-        <div class="subject-name">Chemistry</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1617155093730-a8bf47be792d?w=300&q=80');"></div>
+                    <div class="subject-name">Chemistry</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300&q=80');"></div>
-        <div class="subject-name">Culinary</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300&q=80');"></div>
+                    <div class="subject-name">Culinary</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=300&q=80');"></div>
-        <div class="subject-name">Government</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=300&q=80');"></div>
+                    <div class="subject-name">Government</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=300&q=80');"></div>
-        <div class="subject-name">History</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=300&q=80');"></div>
+                    <div class="subject-name">History</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?w=300&q=80');"></div>
-        <div class="subject-name">Math</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?w=300&q=80');"></div>
+                    <div class="subject-name">Math</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=300&q=80');"></div>
-        <div class="subject-name">Physics</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=300&q=80');"></div>
+                    <div class="subject-name">Physics</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=300&q=80');"></div>
-        <div class="subject-name">Programming Fundamentals</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=300&q=80');"></div>
+                    <div class="subject-name">Programming Fundamentals</div>
+                </a>
 
-    <div class="subject-tile">
-        <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=300&q=80');"></div>
-        <div class="subject-name">Psychology</div>
-    </div>
+                <a href="#" class="subject-tile">
+                    <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=300&q=80');"></div>
+                    <div class="subject-name">Psychology</div>
+                </a>
 
-</section>
+            </section>
 
             <h2 class="section-title">Active Peer Sessions (Shadowing Available)</h2>
             <section class="grid-container">
@@ -500,7 +477,7 @@
         </main>
     </div>
 
-<script>
+    <script>
         const staffSchedules = {
             nicole: {
                 1: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
@@ -525,22 +502,10 @@
             }
         };
 
-        // DIAGNOSTIC TOOL: Creates a small box to show you what time the code sees
-        const debugBox = document.createElement('div');
-        debugBox.style.padding = '10px';
-        debugBox.style.backgroundColor = '#eb0400';
-        debugBox.style.color = 'white';
-        debugBox.style.fontWeight = 'bold';
-        debugBox.style.textAlign = 'center';
-        document.body.insertBefore(debugBox, document.body.firstChild);
-
         function updateAllStatuses() {
             const now = new Date();
             const currentDay = now.getDay();
             const currentHourDecimal = now.getHours() + (now.getMinutes() / 60);
-
-            // Print the current time so you can verify it
-            debugBox.innerText = `DEBUG MODE - Browser Day: ${currentDay} (1=Mon, 5=Fri) | Browser Time Decimal: ${currentHourDecimal.toFixed(2)}`;
 
             for (const person in staffSchedules) {
                 const schedule = staffSchedules[person];
