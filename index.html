@@ -181,41 +181,44 @@
             overflow-y: auto;
         }
 
-/* 1. Widen the sidebar */
-        .sidebar {
-            width: 280px; /* Increased from 240px to fit full names */
+/* --- SUBJECT GRID & TILES --- */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .subject-tile {
             background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            padding: 10px 0;
-            overflow-y: auto;
-            flex-shrink: 0;
-            border-right: 1px solid var(--border-color);
-}
-
-/* 2. Reduce the empty padding on the left/right edges */
-        .channel-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px; /* Reduced from 20px to 15px */
+            transition: transform 0.2s, border-color 0.2s;
             cursor: pointer;
-            transition: background 0.2s;
-            gap: 8px;
-}
+        }
 
-/* 3. Shave a tiny bit of width off the status box */
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end; 
-            gap: 6px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            width: 85px; /* Reduced from 90px */
-            flex-shrink: 0; 
-            text-align: right;
-}
+        .subject-tile:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .subject-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .subject-name {
+            padding: 12px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            text-align: center;
         }
 
         .hero-text h2 { margin: 0 0 5px 0; color: var(--accent); font-size: 1rem; text-transform: uppercase; }
