@@ -2,40 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greyson_Geology Live Stream</title>
+    <title>Greyson Martin | Profile</title>
     <style>
-        body { background-color: #0e0e10; color: white; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display: flex; height: 100vh; margin: 0; }
-        #stream-container { flex: 3; padding: 20px; display: flex; flex-direction: column; }
-        #video-placeholder { background: #18181b; height: 60vh; display: flex; align-items: center; justify-content: center; border: 2px solid #333; }
-        img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        #chat-container { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; min-width: 300px; }
-        .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; text-align: center; }
-        #chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
+        body { background-color: #0e0e10; color: #efeff1; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; overflow: hidden; }
+        
+        /* Main Column */
+        #main-column { flex: 3; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
+        #image-box { width: 100%; max-width: 800px; height: 450px; background: #18181b; border: 2px solid #333; display: flex; align-items: center; justify-content: center; }
+        #image-box img { max-width: 100%; max-height: 100%; object-fit: cover; }
+        #about-me { max-width: 800px; margin-top: 20px; padding: 20px; background: #1f1f23; border-radius: 8px; }
+        
+        /* Chat Column */
+        #chat-column { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; min-width: 300px; }
+        .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; text-align: center; color: #bf94ff; }
+        #chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 10px; }
         .message { line-height: 1.4; }
-        .user { color: #bf94ff; font-weight: bold; }
-        .mod { color: #a2e817; font-weight: bold; }
+        .user { color: #a2e817; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div id="stream-container">
-    <h2 style="margin-top: 0;">Greyson_Geology is live!</h2>
-    <div id="video-placeholder">
-        <!-- Placeholder for your stream content -->
-        <img src="https://via.placeholder.com/800x450?text=Geology+Lab+Feed" alt="Stream Content">
+<div id="main-column">
+    <h1>Greyson Martin</h1>
+    <div id="image-box">
+        <!-- Replace with your actual photo -->
+        <img src="https://via.placeholder.com/800x450?text=Profile+Photo" alt="Profile Visual">
     </div>
-    <p>Mineralogy Field Studies - Analyzing new samples</p>
+    
+    <div id="about-me">
+        <h2>About Me</h2>
+        <p>Computer Science student transitioning into Geology at UT Arlington. Exploring the intersection of machine learning and earth sciences.</p>
+    </div>
 </div>
 
-<div id="chat-container">
-    <div class="chat-header">STREAM CHAT</div>
+<div id="chat-column">
+    <div class="chat-header">LIVE CHAT</div>
     <div id="chat-messages">
-        <div class="message"><span class="mod">System:</span> Welcome to the stream!</div>
+        <div class="message"><span class="user">GeoFan99:</span> Welcome to the stream!</div>
     </div>
 </div>
 
 <script>
-    const messages = [
+    const punMessages = [
         "You rock!",
         "That sample is gneiss.",
         "Don't take geology for granite.",
@@ -43,34 +51,30 @@
         "That mineral is boulder than the rest.",
         "Geologists have a lot of grit.",
         "Talk schist to me!",
-        "This stream is lit-hosphere.",
-        "Solid as a rock!"
+        "Solid as a rock!",
+        "This profile is crystal clear."
     ];
 
-    const users = ["GeoFan99", "RockHound_TX", "CrystalClear", "SedimentSam", "StoneCold"];
+    const viewers = ["GeoFan99", "RockHound_TX", "CrystalClear", "SedimentSam", "StoneCold", "FaultLine"];
 
-    function addMessage() {
+    function addPun() {
         const chat = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
         
-        const randomUser = users[Math.floor(Math.random() * users.length)];
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        const randomUser = viewers[Math.floor(Math.random() * viewers.length)];
+        const randomPun = punMessages[Math.floor(Math.random() * punMessages.length)];
         
-        messageDiv.innerHTML = `<span class="user">${randomUser}:</span> ${randomMsg}`;
+        messageDiv.innerHTML = `<span class="user">${randomUser}:</span> ${randomPun}`;
         chat.appendChild(messageDiv);
-        
-        // Auto-scroll to bottom
         chat.scrollTop = chat.scrollHeight;
         
-        // Remove old messages to keep it clean
         if (chat.children.length > 15) {
             chat.removeChild(chat.firstChild);
         }
     }
 
-    // Add a new message every 2.5 seconds
-    setInterval(addMessage, 2500);
+    setInterval(addPun, 3000);
 </script>
 
 </body>
