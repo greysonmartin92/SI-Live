@@ -4,17 +4,50 @@
     <meta charset="UTF-8">
     <style>
         * { box-sizing: border-box; }
-        body { background-color: #0e0e10; color: #efeff1; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; }
+        body { 
+            background-color: #0e0e10; 
+            color: #efeff1; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden; /* Prevents whole page scrolling */
+        }
         
-        /* Main Column - Cleaned spacing */
-        #main-column { flex: 3; padding: 30px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+        /* Layout Structure */
+        #main-column { 
+            flex: 1; /* Takes up remaining space */
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            overflow-y: auto; 
+        }
+        
+        #chat-column { 
+            width: 350px; /* Fixed width for chat */
+            background: #18181b; 
+            border-left: 1px solid #333; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; /* Forces chat to full height */
+        }
+
+        /* Content Styling */
         #image-box { width: 100%; max-width: 800px; height: 450px; background: #18181b; border: 1px solid #333; display: flex; align-items: center; justify-content: center; }
         #about-me { max-width: 800px; padding: 20px; background: #1f1f23; border-radius: 4px; border: 1px solid #333; }
         
-        /* Chat Column */
-        #chat-column { width: 350px; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; }
+        /* Chat Styling */
         .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; text-align: center; color: #bf94ff; font-size: 0.9em; }
-        #chat-messages { padding: 10px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
+        #chat-messages { 
+            padding: 10px; 
+            flex-grow: 1; 
+            overflow-y: auto; /* Chat scrolls independently */
+            font-size: 0.9em; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
         .message { line-height: 1.4; word-wrap: break-word; }
     </style>
 </head>
@@ -38,16 +71,7 @@
 </div>
 
 <script>
-    const puns = [
-        "You rock! 🪨",
-        "That sample is gneiss. ✨",
-        "Don't take geology for granite. 🏔️",
-        "I'm feeling sedimental today. 🥺",
-        "That mineral is boulder than the rest. 💪",
-        "Talk schist to me! 💎",
-        "Solid as a rock! 🤘"
-    ];
-
+    const puns = ["You rock! 🪨", "That sample is gneiss. ✨", "Don't take geology for granite. 🏔️", "I'm feeling sedimental today. 🥺", "That mineral is boulder than the rest. 💪", "Talk schist to me! 💎", "Solid as a rock! 🤘"];
     const users = [
         { name: "GeoFan99", color: "#a2e817" },
         { name: "RockHound_TX", color: "#ff7f50" },
@@ -60,18 +84,14 @@
         const chat = document.getElementById('chat-messages');
         const user = users[Math.floor(Math.random() * users.length)];
         const pun = puns[Math.floor(Math.random() * puns.length)];
-        
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
         messageDiv.innerHTML = `<span style="color: ${user.color}; font-weight: bold;">${user.name}:</span> ${pun}`;
-        
         chat.appendChild(messageDiv);
         chat.scrollTop = chat.scrollHeight;
-        
-        if (chat.children.length > 15) chat.removeChild(chat.firstChild);
+        if (chat.children.length > 20) chat.removeChild(chat.firstChild);
     }
-
-    setInterval(addMessage, 3000);
+    setInterval(addMessage, 2000);
 </script>
 </body>
 </html>
