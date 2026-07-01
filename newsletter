@@ -5,6 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SI Leader Dashboard</title>
     <style>
+        /* --- WEEKLY ANNOUNCEMENT BANNER --- */
+        .announcement-banner {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent); /* Highlights the announcement */
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        
+        .announcement-banner h3 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 1.2rem;
+        }
+        
+        .announcement-date {
+            background-color: rgba(0, 210, 106, 0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .announcement-banner p {
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .announcement-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        
+        .announcement-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
         /* --- CUSTOMIZABLE COLORS --- */
         :root {
             --bg-main: #0e0e10;       
