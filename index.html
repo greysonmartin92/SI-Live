@@ -117,22 +117,26 @@
             justify-content: space-between;
         }
 
-        /* SIDEBAR ROWS */
-        .channel-item {
-            display: block; /* Changes the anchor link to act like a block row */
-            text-decoration: none; /* Removes underline */
-            color: inherit; /* Keeps text color from turning blue */
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: background 0.2s;
+       /* This makes the link invisible to the layout, keeping your rows perfect */
+        .profile-link {
+            display: contents;
+            text-decoration: none;
+            color: inherit;
         }
 
-/* Because we changed it to display: block, we need to re-apply the flex layout to the children */
-        .channel-item-inner {
+/* This keeps the hover effect intact */
+        .profile-link:hover .channel-item {
+            background-color: var(--bg-hover);
+        }
+
+        .channel-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 10px 15px;
+            transition: background 0.2s;
             gap: 8px;
+            cursor: pointer;
         }
 
         .channel-item:hover { background-color: var(--bg-hover); }
