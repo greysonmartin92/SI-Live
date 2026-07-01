@@ -2,38 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Greyson_Geology Live Stream</title>
     <style>
-        body { background-color: #0e0e10; color: white; font-family: sans-serif; display: flex; height: 100vh; margin: 0; }
+        body { background-color: #0e0e10; color: white; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display: flex; height: 100vh; margin: 0; }
         #stream-container { flex: 3; padding: 20px; display: flex; flex-direction: column; }
         #video-placeholder { background: #18181b; height: 60vh; display: flex; align-items: center; justify-content: center; border: 2px solid #333; }
-        #chat-container { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; }
-        .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; }
-        .chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; }
-        .message { margin-bottom: 10px; }
+        img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        #chat-container { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; min-width: 300px; }
+        .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; text-align: center; }
+        #chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
+        .message { line-height: 1.4; }
         .user { color: #bf94ff; font-weight: bold; }
-        .mod { color: #a2e817; }
+        .mod { color: #a2e817; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div id="stream-container">
-    <h2>Greyson_Geology is live!</h2>
+    <h2 style="margin-top: 0;">Greyson_Geology is live!</h2>
     <div id="video-placeholder">
-        <img src="https://via.placeholder.com/800x450?text=Labradorite+Crystal+Macro+Shot" alt="Stream Content">
+        <!-- Placeholder for your stream content -->
+        <img src="https://via.placeholder.com/800x450?text=Geology+Lab+Feed" alt="Stream Content">
     </div>
     <p>Mineralogy Field Studies - Analyzing new samples</p>
 </div>
 
 <div id="chat-container">
     <div class="chat-header">STREAM CHAT</div>
-    <div class="chat-messages">
-        <div class="message"><span class="mod">[Mod]</span> Welcome to the chat!</div>
-        <div class="message"><span class="user">GeoFan99:</span> Is this the sample from the field trip?</div>
-        <div class="message"><span class="user">RockHound_TX:</span> That iridescence is insane! 😍</div>
-        <div class="message"><span class="user">TechGuru_88:</span> How is that 24GB memory upgrade treating the rendering?</div>
-        <div class="message"><span class="user">Greyson_Geology:</span> @TechGuru_88 It's a beast! Makes these 3D renders so smooth.</div>
+    <div id="chat-messages">
+        <div class="message"><span class="mod">System:</span> Welcome to the stream!</div>
     </div>
 </div>
+
+<script>
+    const messages = [
+        "You rock!",
+        "That sample is gneiss.",
+        "Don't take geology for granite.",
+        "I'm feeling sedimental today.",
+        "That mineral is boulder than the rest.",
+        "Geologists have a lot of grit.",
+        "Talk schist to me!",
+        "This stream is lit-hosphere.",
+        "Solid as a rock!"
+    ];
+
+    const users = ["GeoFan99", "RockHound_TX", "CrystalClear", "SedimentSam", "StoneCold"];
+
+    function addMessage() {
+        const chat = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        
+        const randomUser = users[Math.floor(Math.random() * users.length)];
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        
+        messageDiv.innerHTML = `<span class="user">${randomUser}:</span> ${randomMsg}`;
+        chat.appendChild(messageDiv);
+        
+        // Auto-scroll to bottom
+        chat.scrollTop = chat.scrollHeight;
+        
+        // Remove old messages to keep it clean
+        if (chat.children.length > 15) {
+            chat.removeChild(chat.firstChild);
+        }
+    }
+
+    // Add a new message every 2.5 seconds
+    setInterval(addMessage, 2500);
+</script>
 
 </body>
 </html>
