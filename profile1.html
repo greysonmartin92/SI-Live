@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background-color: #0e0e10; color: white; font-family: sans-serif; display: flex; height: 100vh; margin: 0; }
+        #stream-container { flex: 3; padding: 20px; display: flex; flex-direction: column; }
+        #video-placeholder { background: #18181b; height: 60vh; display: flex; align-items: center; justify-content: center; border: 2px solid #333; }
+        #chat-container { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; }
+        .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; }
+        .chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; }
+        .message { margin-bottom: 10px; }
+        .user { color: #bf94ff; font-weight: bold; }
+        .mod { color: #a2e817; }
+    </style>
+</head>
+<body>
+
+<div id="stream-container">
+    <h2>Greyson_Geology is live!</h2>
+    <div id="video-placeholder">
+        <img src="https://via.placeholder.com/800x450?text=Labradorite+Crystal+Macro+Shot" alt="Stream Content">
+    </div>
+    <p>Mineralogy Field Studies - Analyzing new samples</p>
+</div>
+
+<div id="chat-container">
+    <div class="chat-header">STREAM CHAT</div>
+    <div class="chat-messages">
+        <div class="message"><span class="mod">[Mod]</span> Welcome to the chat!</div>
+        <div class="message"><span class="user">GeoFan99:</span> Is this the sample from the field trip?</div>
+        <div class="message"><span class="user">RockHound_TX:</span> That iridescence is insane! 😍</div>
+        <div class="message"><span class="user">TechGuru_88:</span> How is that 24GB memory upgrade treating the rendering?</div>
+        <div class="message"><span class="user">Greyson_Geology:</span> @TechGuru_88 It's a beast! Makes these 3D renders so smooth.</div>
+    </div>
+</div>
+
+</body>
+</html>
