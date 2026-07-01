@@ -5,72 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SI Leader Dashboard</title>
     <style>
-        /* --- WEEKLY ANNOUNCEMENT BANNER --- */
-        .announcement-banner {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent); /* Highlights the announcement */
-            border-radius: 8px;
-            padding: 25px 30px;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .announcement-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-        
-        .announcement-banner h3 {
-            margin: 0;
-            color: var(--text-main);
-            font-size: 1.2rem;
-        }
-        
-        .announcement-date {
-            background-color: rgba(0, 210, 106, 0.1);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .announcement-banner p {
-            color: var(--text-muted);
-            margin: 0 0 15px 0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .announcement-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: inline-block;
-            transition: color 0.2s;
-        }
-        
-        .announcement-link:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-            .announcement-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
         /* --- CUSTOMIZABLE COLORS --- */
         :root {
             --bg-main: #0e0e10;       
@@ -123,12 +57,14 @@
             font-weight: 600;
         }
         
-        .nav-links span {
+        .nav-links a {
             cursor: pointer;
             color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.2s;
         }
         
-        .nav-links span:hover { color: var(--accent); }
+        .nav-links a:hover { color: var(--accent); }
 
         .user-profile {
             display: flex;
@@ -158,7 +94,7 @@
 
         /* --- LEFT SIDEBAR --- */
         .sidebar {
-            width: 280px; /* Widened to fit names */
+            width: 280px;
             background-color: var(--bg-panel);
             display: flex;
             flex-direction: column;
@@ -199,10 +135,17 @@
             overflow: hidden;
         }
 
+        /* Vertically centers the stacked names next to the avatar */
+        .channel-info > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .channel-name {
             font-weight: bold;
             font-size: 0.9rem;
-            line-height: 1.2; /* Keeps stacked names close together */
+            line-height: 1.2;
         }
 
         .channel-category {
@@ -251,8 +194,85 @@
             padding-bottom: 10px;
         }
 
+        /* --- ANNOUNCEMENT FEED BANNER --- */
+        .announcement-banner {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        
+        .announcement-banner h3 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 1.2rem;
+        }
+        
+        .announcement-date {
+            background-color: rgba(0, 210, 106, 0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .announcement-body {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap; /* Respects natural line breaks from the JS string */
+            margin-bottom: 15px;
+        }
+
+        .announcement-media {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            display: block;
+        }
+        
+        .announcement-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        
+        .announcement-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
         @media (max-width: 900px) {
             .sidebar { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -261,10 +281,10 @@
     <nav class="navbar">
         <div class="nav-brand">SI LIVE</div>
         <div class="nav-links">
-            <span>Dashboard</span>
-            <span>My Schedule</span>
-            <span>Training Docs</span>
-            <span>Submit Attendance</span>
+            <a href="index.html" style="color: var(--accent);">Dashboard</a>
+            <a href="schedule.html">My Schedule</a>
+            <a href="training.html">Training Docs</a>
+            <a href="attendance.html">Submit Attendance</a>
         </div>
         <div class="user-profile">
             Alex J.
@@ -349,24 +369,69 @@
             </div>
         </aside>
 
-       <main class="content-area">
+        <main class="content-area">
             
-            <h2 class="section-title">Latest Announcement</h2>
-            <section class="announcement-banner">
-                <div class="announcement-header">
-                    <h3>Midterm Review Session Guidelines</h3>
-                    <span class="announcement-date">Week of Oct 14</span>
-                </div>
-                <p>Hello Team! As we approach midterms, please ensure your review session schedules are finalized in the system by Wednesday at 5:00 PM. Remember to remind students that attendance is capped at 50 per session for safety. If you need overflow rooms, please message Nicole directly via the dashboard.</p>
-                <div>
-                    <a href="#" class="announcement-link">Read full guidelines & booking info →</a>
-                </div>
-            </section>
+            <h2 class="section-title">Announcements & Updates</h2>
+            
+            <!-- This empty box will hold all your posts generated by the JavaScript -->
+            <div id="newsletter-feed"></div>
 
         </main>
     </div>
 
     <script>
+        // --- ANNOUNCEMENT FEED LOGIC --- //
+        // Add new posts to the top of this list!
+        const posts = [
+            {
+                title: "Midterm Review Session Guidelines",
+                date: "Week of Oct 14",
+                imageUrl: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
+                content: `Hello Team! 
+
+As we approach midterms, please ensure your review session schedules are finalized in the system by Wednesday at 5:00 PM. 
+
+Key Reminders:
+• Submit your attendance within 24 hours.
+• Reach out on the dashboard if you need coverage.`
+            },
+            {
+                title: "Welcome to the Fall Semester",
+                date: "Week of Aug 25",
+                // No imageUrl here, so the script will skip adding an image
+                content: `Welcome back everyone! 
+
+Please make sure you have completed your mandatory training modules before your first session. Check the Training Docs tab for the updated PDF guides.`
+            }
+        ];
+
+        const feedContainer = document.getElementById('newsletter-feed');
+        let htmlOutput = '';
+
+        posts.forEach(post => {
+            // Check if this specific post has an image
+            const mediaTag = post.imageUrl ? `<img src="${post.imageUrl}" alt="Announcement Media" class="announcement-media">` : '';
+
+            htmlOutput += `
+            <section class="announcement-banner">
+                <div class="announcement-header">
+                    <h3>${post.title}</h3>
+                    <span class="announcement-date">${post.date}</span>
+                </div>
+                ${mediaTag}
+                <div class="announcement-body">${post.content}</div>
+                <div>
+                    <a href="#" class="announcement-link">Read full guidelines & booking info →</a>
+                </div>
+            </section>
+            `;
+        });
+
+        // Inject the generated banners into the page
+        feedContainer.innerHTML = htmlOutput;
+
+
+        // --- STAFF STATUS TRACKER LOGIC --- //
         const staffSchedules = {
             nicole: {
                 1: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
