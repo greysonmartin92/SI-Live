@@ -194,25 +194,31 @@
             padding-bottom: 10px;
         }
 
-        /* --- ANNOUNCEMENT FEED BANNER --- */
+       /* --- ANNOUNCEMENT FEED BANNER --- */
         .announcement-banner {
             background-color: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent);
             border-radius: 8px;
             padding: 25px 30px;
-            margin-bottom: 40px;
+            margin-bottom: 20px; /* Reduced margin so stacked banners look tighter */
             display: flex;
             flex-direction: column;
+            transition: border-color 0.2s;
         }
         
         .announcement-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
+            cursor: pointer; /* Changes the mouse to a pointer hand */
+            user-select: none; /* Prevents accidentally highlighting text when clicking */
+        }
+        
+        .announcement-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
         .announcement-banner h3 {
@@ -231,12 +237,35 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        /* The expansion arrow */
+        .expand-icon {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        
+        /* The container holding the text, images, and links */
+        .announcement-content {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* When the 'expanded' class is added, show the content and rotate the arrow */
+        .announcement-banner.expanded .announcement-content {
+            display: block;
+        }
+        .announcement-banner.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
         
         .announcement-body {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.6;
-            white-space: pre-wrap; /* Respects natural line breaks from the JS string */
+            white-space: pre-wrap;
             margin-bottom: 15px;
         }
 
@@ -261,10 +290,6 @@
         .announcement-link:hover {
             color: var(--accent-hover);
             text-decoration: underline;
-        }
-
-        @media (max-width: 900px) {
-            .sidebar { display: none; }
         }
 
         @media (max-width: 600px) {
