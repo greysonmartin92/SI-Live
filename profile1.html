@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greyson Martin | Profile</title>
+    <title>Greyson Martin | Portfolio</title>
     <style>
         body { background-color: #0e0e10; color: #efeff1; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; margin: 0; overflow: hidden; }
         
-        /* Main Column */
+        /* Main Stream Area */
         #main-column { flex: 3; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
-        #image-box { width: 100%; max-width: 800px; height: 450px; background: #18181b; border: 2px solid #333; display: flex; align-items: center; justify-content: center; }
-        #image-box img { max-width: 100%; max-height: 100%; object-fit: cover; }
-        #about-me { max-width: 800px; margin-top: 20px; padding: 20px; background: #1f1f23; border-radius: 8px; }
+        #stream-placeholder { width: 100%; height: 50vh; background: #18181b; border: 2px solid #333; display: flex; align-items: center; justify-content: center; }
+        #stream-placeholder img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        /* Chat Column */
+        /* Profile Info */
+        #about-me { margin-top: 20px; padding: 20px; background: #1f1f23; border-radius: 8px; }
+        
+        /* Chat Sidebar */
         #chat-column { flex: 1; background: #18181b; border-left: 1px solid #333; display: flex; flex-direction: column; min-width: 300px; }
         .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; text-align: center; color: #bf94ff; }
-        #chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 10px; }
+        #chat-messages { padding: 15px; flex-grow: 1; overflow-y: auto; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
         .message { line-height: 1.4; }
         .user { color: #a2e817; font-weight: bold; }
     </style>
@@ -24,48 +26,43 @@
 
 <div id="main-column">
     <h1>Greyson Martin</h1>
-    <div id="image-box">
-        <!-- Replace with your actual photo -->
-        <img src="https://via.placeholder.com/800x450?text=Profile+Photo" alt="Profile Visual">
+    <div id="stream-placeholder">
+        <img src="https://via.placeholder.com/800x450?text=Greyson+Martin+Live+Profile" alt="Profile Visual">
     </div>
     
     <div id="about-me">
         <h2>About Me</h2>
-        <p>Computer Science student transitioning into Geology at UT Arlington. Exploring the intersection of machine learning and earth sciences.</p>
+        <p>Computer Science student turned Geology major at UT Arlington. Passionate about machine learning, data validation, and exploring the intersection of technology and the physical world.</p>
+        <p><strong>Currently working on:</strong> Mineralogy field studies and SVM model optimization.</p>
     </div>
 </div>
 
 <div id="chat-column">
-    <div class="chat-header">LIVE CHAT</div>
+    <div class="chat-header">LIVE ACTIVITY FEED</div>
     <div id="chat-messages">
-        <div class="message"><span class="user">GeoFan99:</span> Welcome to the stream!</div>
+        <div class="message"><span class="user">System:</span> Welcome to the stream!</div>
     </div>
 </div>
 
 <script>
-    const punMessages = [
-        "You rock!",
-        "That sample is gneiss.",
-        "Don't take geology for granite.",
-        "I'm feeling sedimental today.",
-        "That mineral is boulder than the rest.",
-        "Geologists have a lot of grit.",
-        "Talk schist to me!",
-        "Solid as a rock!",
-        "This profile is crystal clear."
+    const updates = [
+        "Greyson is currently analyzing geological samples.",
+        "Just updated the SVM model for thesis work.",
+        "System check: 24GB memory running at optimal speeds.",
+        "Updating mineralogy research notes...",
+        "Exploring new field study locations.",
+        "Compiling data for the next project iteration.",
+        "Automating machine learning workflows."
     ];
 
-    const viewers = ["GeoFan99", "RockHound_TX", "CrystalClear", "SedimentSam", "StoneCold", "FaultLine"];
-
-    function addPun() {
+    function addUpdate() {
         const chat = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
         
-        const randomUser = viewers[Math.floor(Math.random() * viewers.length)];
-        const randomPun = punMessages[Math.floor(Math.random() * punMessages.length)];
+        const randomUpdate = updates[Math.floor(Math.random() * updates.length)];
         
-        messageDiv.innerHTML = `<span class="user">${randomUser}:</span> ${randomPun}`;
+        messageDiv.innerHTML = `<span class="user">Greyson_Bot:</span> ${randomUpdate}`;
         chat.appendChild(messageDiv);
         chat.scrollTop = chat.scrollHeight;
         
@@ -74,8 +71,14 @@
         }
     }
 
-    setInterval(addPun, 3000);
+    setInterval(addUpdate, 3500);
 </script>
 
 </body>
 </html>
+Why this works for your goals:
+The "Live" Illusion: By using a Greyson_Bot in the chat, it keeps the stream vibe active and mimics a live status update, while your permanent "About Me" stays fixed in the main display area.
+
+Professional Depth: It allows you to display your actual credentials (UT Arlington, CS background, Geology interest) in a high-visibility, static space, while the "live" feed creates interest and engagement.
+
+How do you feel about this balance of the static "About Me" and the dynamic "Activity Feed"? Would you like to add a section for links to your GitHub or other projects?
