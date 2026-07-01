@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI Leader Dashboard</title>
+    <style>
+        /* --- CUSTOMIZABLE COLORS --- */
+        :root {
+            --bg-main: #0e0e10;       
+            --bg-panel: #1f1f23;      
+            --bg-hover: #26262c;
+            --text-main: #efeff1;     
+            --text-muted: #adadb8;
+            --accent: #00d26a;        
+            --accent-hover: #00b359;
+            --border-color: #2f2f35;
+            --tag-bg: #323239;
+            --alert: #eb0400;
+            --away: #f5a623;          
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TOP NAVIGATION --- */
+        .navbar {
+            height: 50px;
+            background-color: var(--bg-panel);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+        }
+        
+        .nav-links span {
+            cursor: pointer;
+            color: var(--text-main);
+        }
+        
+        .nav-links span:hover { color: var(--accent); }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* IMAGE AVATAR SETTINGS */
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #555;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: top; 
+            flex-shrink: 0;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- LEFT SIDEBAR --- */
+        .sidebar {
+            width: 280px; /* Widened to fit names */
+            background-color: var(--bg-panel);
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 10px 20px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* SIDEBAR ROWS */
+        .channel-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            gap: 8px; 
+        }
+
+        .channel-item:hover { background-color: var(--bg-hover); }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1; 
+            overflow: hidden;
+        }
+
+        .channel-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            line-height: 1.2; /* Keeps stacked names close together */
+        }
+
+        .channel-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* STATUS DOT ALIGNMENT BOX */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; 
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            width: 85px; 
+            flex-shrink: 0; 
+            text-align: right;
+        }
+
+        /* STATUS DOTS */
+        .green-dot, .red-dot, .orange-dot, .gray-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .green-dot { background-color: var(--accent); }
+        .red-dot { background-color: var(--alert); }
+        .orange-dot { background-color: var(--away); }
+        .gray-dot { background-color: #555; }
+
+        /* --- CONTENT AREA (Center) --- */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-brand">SI LIVE</div>
+        <div class="nav-links">
+            <span>Dashboard</span>
+            <span>My Schedule</span>
+            <span>Training Docs</span>
+            <span>Submit Attendance</span>
+        </div>
+        <div class="user-profile">
+            Alex J.
+            <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&q=80');"></div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        
+        <aside class="sidebar">
+            
+            <div class="sidebar-title">
+                <span>Leadership</span>
+            </div>
+            
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">Nicole<br>Procell</div>
+                        <div class="channel-category">SI Manager</div>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div id="nicole-dot" class="gray-dot"></div> 
+                    <span id="nicole-status">Checking...</span>
+                </div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">Erika<br>Sanchez</div>
+                        <div class="channel-category">Senior SI Leader</div>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div id="erika-dot" class="gray-dot"></div> 
+                    <span id="erika-status">Checking...</span>
+                </div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">Greyson<br>Martin</div>
+                        <div class="channel-category">Senior SI Leader</div>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div id="greyson-dot" class="gray-dot"></div> 
+                    <span id="greyson-status">Checking...</span>
+                </div>
+            </div>
+
+            <div class="sidebar-title" style="margin-top: 20px;">
+                <span>Online Peers</span>
+            </div>
+            
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">Sarah M.</div>
+                        <div class="channel-category">Geology</div>
+                    </div>
+                </div>
+                <div class="status-indicator"><div class="green-dot"></div> Planning</div>
+            </div>
+
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80');"></div>
+                    <div>
+                        <div class="channel-name">David L.</div>
+                        <div class="channel-category">Comp Sci</div>
+                    </div>
+                </div>
+                <div class="status-indicator"><div class="red-dot"></div> In Session</div>
+            </div>
+        </aside>
+
+       <main class="content-area">
+            
+            <h2 class="section-title">Latest Announcement</h2>
+            <section class="announcement-banner">
+                <div class="announcement-header">
+                    <h3>Midterm Review Session Guidelines</h3>
+                    <span class="announcement-date">Week of Oct 14</span>
+                </div>
+                <p>Hello Team! As we approach midterms, please ensure your review session schedules are finalized in the system by Wednesday at 5:00 PM. Remember to remind students that attendance is capped at 50 per session for safety. If you need overflow rooms, please message Nicole directly via the dashboard.</p>
+                <div>
+                    <a href="#" class="announcement-link">Read full guidelines & booking info →</a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const staffSchedules = {
+            nicole: {
+                1: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
+                2: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 }, 
+                3: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
+                4: { start: 9, end: 17, lunchStart: 12, lunchEnd: 13 },     
+                5: { start: 9, end: 15.5, lunchStart: 11.5, lunchEnd: 12 }  
+            },
+            erika: {
+                1: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                2: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                3: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                4: { start: 11, end: 19, lunchStart: 14, lunchEnd: 15 },
+                5: { start: 11, end: 17 } 
+            },
+            greyson: {
+                1: { start: 8, end: 12 },
+                2: { start: 8, end: 12 },
+                3: { start: 8, end: 12 },
+                4: { start: 8, end: 12 },
+                5: { start: 8, end: 12 }
+            }
+        };
+
+        function updateAllStatuses() {
+            const now = new Date();
+            const currentDay = now.getDay();
+            const currentHourDecimal = now.getHours() + (now.getMinutes() / 60);
+
+            for (const person in staffSchedules) {
+                const schedule = staffSchedules[person];
+                const dotEl = document.getElementById(`${person}-dot`);
+                const statusEl = document.getElementById(`${person}-status`);
+                
+                if (!dotEl || !statusEl) continue;
+
+                let status = 'offline'; 
+
+                if (schedule[currentDay]) {
+                    const shift = schedule[currentDay];
+                    if (currentHourDecimal >= shift.start && currentHourDecimal < shift.end) {
+                        status = 'online';
+                        if (shift.lunchStart && shift.lunchEnd) {
+                            if (currentHourDecimal >= shift.lunchStart && currentHourDecimal < shift.lunchEnd) {
+                                status = 'lunch';
+                            }
+                        }
+                    }
+                }
+
+                if (status === 'online') {
+                    dotEl.className = 'green-dot';
+                    statusEl.innerText = 'In Office';
+                } else if (status === 'lunch') {
+                    dotEl.className = 'orange-dot';
+                    statusEl.innerText = 'On Lunch';
+                } else {
+                    dotEl.className = 'gray-dot';
+                    statusEl.innerText = 'Offline'; 
+                }
+            }
+        }
+
+        updateAllStatuses();
+        setInterval(updateAllStatuses, 60000);
+    </script>
+</body>
+</html>
