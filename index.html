@@ -57,9 +57,14 @@
             font-weight: 600;
         }
         
-        .nav-links span {
+        .nav-links a {
             cursor: pointer;
             color: var(--text-main);
+            text-decoration: none; /* Removes the ugly default underline */
+            transition: color 0.2s; /* Adds a smooth fade effect on hover */
+}
+
+.nav-links a:hover { color: var(--accent); }
         }
         
         .nav-links span:hover { color: var(--accent); }
@@ -285,12 +290,15 @@
 
     <nav class="navbar">
         <div class="nav-brand">SI LIVE</div>
-        <div class="nav-links">
-            <span>Dashboard</span>
-            <span>My Schedule</span>
-            <span>Training Docs</span>
-            <span>Submit Attendance</span>
-        </div>
+            <div class="nav-links">
+                <a href="index.html">Dashboard</a>
+    
+                <a href="newsletter">News</a>
+    
+                <a href="https://docs.google.com/document/your-link-here" target="_blank" rel="noopener noreferrer">Training Docs</a>
+    
+                <a href="attendance.html">Submit Attendance</a>
+            </div>
         <div class="user-profile">
             Alex J.
             <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&q=80');"></div>
