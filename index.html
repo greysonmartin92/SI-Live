@@ -119,13 +119,20 @@
 
         /* SIDEBAR ROWS */
         .channel-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: block; /* Changes the anchor link to act like a block row */
+            text-decoration: none; /* Removes underline */
+            color: inherit; /* Keeps text color from turning blue */
             padding: 10px 15px;
             cursor: pointer;
             transition: background 0.2s;
-            gap: 8px; 
+        }
+
+/* Because we changed it to display: block, we need to re-apply the flex layout to the children */
+        .channel-item-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
         }
 
         .channel-item:hover { background-color: var(--bg-hover); }
