@@ -28,16 +28,24 @@ if (feedContainer) {
 
     posts.forEach(post => {
         const mediaTag = post.imageUrl ? `<img src="${post.imageUrl}" alt="Announcement Media" class="announcement-media">` : '';
+        const linkTag = post.linkUrl ? `<div><a href="${post.linkUrl}" target="_blank" class="announcement-link">${post.linkLabel || 'Read more →'}</a></div>` : '';
 
+        // Notice the onclick event added to the header, and the new .announcement-content wrapper
         htmlOutput += `
         <section class="announcement-banner">
-            <div class="announcement-header">
-                <h3>${post.title}</h3>
-                <span class="announcement-date">${post.date}</span>
+            <div class="announcement-header" onclick="this.closest('.announcement-banner').classList.toggle('expanded')">
+                <div class="announcement-header-left">
+                    <h3>${post.title}</h3>
+                    <span class="announcement-date">${post.date}</span>
+                </div>
+                <div class="expand-icon">▼</div>
             </div>
-            ${mediaTag}
-            <div class="announcement-body">${post.content}</div>
-
+            
+            <div class="announcement-content">
+                ${mediaTag}
+                <div class="announcement-body">${post.content}</div>
+                ${linkTag}
+            </div>
         </section>
         `;
     });
