@@ -37,9 +37,7 @@ if (feedContainer) {
             </div>
             ${mediaTag}
             <div class="announcement-body">${post.content}</div>
-            <div>
-                <a href="#" class="announcement-link">Read full guidelines & booking info →</a>
-            </div>
+
         </section>
         `;
     });
